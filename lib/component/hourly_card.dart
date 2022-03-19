@@ -3,21 +3,30 @@ import 'package:dusty_dust/component/main_card.dart';
 import 'package:flutter/material.dart';
 
 class HourlyCard extends StatelessWidget {
-  const HourlyCard({Key? key}) : super(key: key);
+  final Color darkColor;
+  final Color lightColor;
+
+  const HourlyCard({
+    required this.darkColor,
+    required this.lightColor,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MainCard(
+      backgroundColor: lightColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           CardTitle(
             title: '시간별 미세먼지',
+            backgroundColor: darkColor,
           ),
           Column(
             children: List.generate(
               24,
-                  (index) {
+              (index) {
                 final now = DateTime.now();
                 final hour = now.hour;
                 int currentHour = hour - index;
@@ -62,4 +71,3 @@ class HourlyCard extends StatelessWidget {
     );
   }
 }
-
