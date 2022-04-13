@@ -19,6 +19,8 @@ class StatRepository {
       },
     );
 
+    print(response);
+
     return response.data['response']['body']['items']
         .map<StatModel>(
           (item) => StatModel.fromJson(json: item),
