@@ -55,9 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
       final box = Hive.box<StatModel>(ItemCode.PM10.name);
-      final recent = box.values.last as StatModel;
 
-      if (recent.dataTime.isAtSameMomentAs(fetchTime)) {
+      if (box.values.isNotEmpty &&
+          (box.values.last as StatModel).dataTime.isAtSameMomentAs(fetchTime)) {
         print('이미 최신 데이터가 있습니다.');
         return;
       }
@@ -126,6 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return ValueListenableBuilder<Box>(
       valueListenable: Hive.box<StatModel>(ItemCode.PM10.name).listenable(),
       builder: (context, box, widget) {
+        if(box.values.isEmpty){
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
         // PM10 (미세먼지)
         // box.value.toList().last
         final recentStat = box.values.toList().last as StatModel;

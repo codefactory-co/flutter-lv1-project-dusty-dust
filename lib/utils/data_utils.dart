@@ -55,6 +55,8 @@ class DataUtils {
     required double value,
     required ItemCode itemCode,
   }) {
+    print('---status level---');
+    print(statusLevel);
     return statusLevel.where(
       (status) {
         if(itemCode == ItemCode.PM10){
